@@ -8,6 +8,5 @@
 !*.csv
 !*.xlsx
 # Or directories
-!*/
 !.gitignore
 !README.md
