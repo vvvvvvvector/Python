@@ -1,5 +1,4 @@
 # Ignore Everything
-*
 .idea/
 
 # But not *.py, *.txt
@@ -7,6 +6,6 @@
 !*.txt
 !*.csv
 !*.xlsx
-# Or directories
+# Or
 !.gitignore
 !README.md
