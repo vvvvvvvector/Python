@@ -4,6 +4,8 @@
 # But not *.py, *.txt
 !*.py
 !*.txt
+!*.csv
+!*.xlsx
 # Or directories
 !*/
 !.gitignore
