@@ -6,13 +6,13 @@ def reverse(str):
 
 
 def compare(first_str, second_str):
-    max = 0
+    pairsAmount = 0
     for i in range(len(first_str)):
         if first_str[i] != '*' and second_str[i] != '*':
             pair = (first_str[i] + second_str[i])
             if pair in pairs:
-                max += 1
-    return max
+                pairsAmount += 1
+    return pairsAmount
 
 
 def hairpin(primer):
@@ -23,12 +23,12 @@ def hairpin(primer):
                 (len(reverse(primer[i:])) - len(primer[:i])) + primer[:i]
             second_str = reverse(primer[i:])
 
-            currentMAX = compare(first_str, second_str)
+            pairsAmount = compare(first_str, second_str)
 
-            if(nMaxPairs < currentMAX):
-                nMaxPairs = currentMAX
+            if(nMaxPairs < pairsAmount):
+                nMaxPairs = pairsAmount
 
-            print(currentMAX)
+            print(pairsAmount)
             print(first_str)
             print(second_str + '\n')
         else:
@@ -36,12 +36,12 @@ def hairpin(primer):
             second_str = '*' * \
                 (len(primer[:i]) - len(primer[i:])) + reverse(primer[i:])
 
-            currentMAX = compare(first_str, second_str)
+            pairsAmount = compare(first_str, second_str)
 
-            if(nMaxPairs < currentMAX):
-                nMaxPairs = currentMAX
+            if(nMaxPairs < pairsAmount):
+                nMaxPairs = pairsAmount
 
-            print(currentMAX)
+            print(pairsAmount)
             print(first_str)
             print(second_str + '\n')
 
