@@ -7,51 +7,58 @@ def reverse(str):
 
 def compare(first_str, second_str):
     pairsAmount = 0
-    for i in range(len(first_str)):
+    i = 0
+    while first_str[i] != '-':
         if first_str[i] != '*' and second_str[i] != '*':
             pair = (first_str[i] + second_str[i])
             if pair in pairs:
                 pairsAmount += 1
+        i += 1
     return pairsAmount
 
 
-def hairpin(primer):
+def hairpin(primer, head):
     nMaxPairs = 0
-    for i in range(1, len(primer)):
-        if(len(reverse(primer[i:])) - len(primer[:i]) >= 0):
-            first_str = '*' * \
-                (len(reverse(primer[i:])) - len(primer[:i])) + primer[:i]
-            second_str = reverse(primer[i:])
+    for i in range(1, len(primer[head * 2:])):
+        firstStr = primer[:i]
+        secondStr = primer[i:]
+        slicedSecondStr = reverse(secondStr[head * 2:])
+        secondStrEnd = secondStr[:head * 2]
+        firstStrEnd = secondStrEnd[:head]
+        slicedSecondStrEnd = reverse(secondStrEnd[-head:])
+        if(len(slicedSecondStr) - len(firstStr) >= 0):
+            first_str = '*' * (len(slicedSecondStr) -
+                               len(firstStr)) + firstStr + '-' + firstStrEnd
+            second_str = slicedSecondStr + '-' + slicedSecondStrEnd + '\n'
 
             pairsAmount = compare(first_str, second_str)
 
             if(nMaxPairs < pairsAmount):
                 nMaxPairs = pairsAmount
-
-            print(pairsAmount)
-            print(first_str)
-            print(second_str + '\n')
         else:
-            first_str = primer[:i]
-            second_str = '*' * \
-                (len(primer[:i]) - len(primer[i:])) + reverse(primer[i:])
+            first_str = firstStr + '-' + firstStrEnd
+            second_str = '*' * (len(firstStr) - len(slicedSecondStr)) + \
+                slicedSecondStr + '-' + slicedSecondStrEnd + '\n'
 
             pairsAmount = compare(first_str, second_str)
 
             if(nMaxPairs < pairsAmount):
                 nMaxPairs = pairsAmount
-
-            print(pairsAmount)
-            print(first_str)
-            print(second_str + '\n')
 
     return nMaxPairs
 
 
 def main():
-    str = 'TACCGGTAGGACTACTGGTA'
+    file_primers = open('Files/primers.txt', 'r')
+    file_result = open('Files/result.txt', 'w')
 
-    print(hairpin(str))
+    for line in file_primers:
+        hairpinResult = hairpin(line.strip(), 2)
+        file_result.write('{} {}\n'.format(line.strip(), hairpinResult))
+    print('Writing to the file was successful!')
+
+    file_primers.close()
+    file_result.close()
 
 
 if __name__ == "__main__":
