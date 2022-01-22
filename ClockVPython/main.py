@@ -56,7 +56,7 @@ def main():
     t_minutes = (current_minutes * 2 * pi) / 60
     dt_minutes = pi / 30
 
-    t_hours = (current_hours * 2 * pi) / 60
+    t_hours = ((current_hours + current_minutes / 60) * 2 * pi) / 12
     dt_hours = pi / 360
 
     arrow_seconds = arrow(pos=vector(0, 0, 1.1), axis=vector((2 - 0.2) * sin(t_seconds), (2 - 0.2) * cos(t_seconds), 0),
