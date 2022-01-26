@@ -39,10 +39,11 @@ def clock_init():
 
 
 def main():
-    # scene.camera.pos = vector(0, 0, 4)
+    scene.camera.pos = vector(0, 0, -8)
     # scene.camera.axis = vector(5, -7, -5)
 
     clock_init()
+    digital_clock = label(text="", pos=vector(0, -3, 1), font='monospace')
 
     now = datetime.datetime.now()
 
@@ -79,6 +80,10 @@ def main():
         arrow_seconds.axis = vector(1.8 * sin(t_seconds), 1.8 * cos(t_seconds), 0)
 
         t_seconds += dt_seconds
+
+        now = datetime.datetime.now()
+
+        digital_clock.text = now.strftime('%H:%M:%S')
 
         sleep(1)
 
